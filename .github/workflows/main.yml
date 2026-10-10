@@ -18,7 +18,7 @@ jobs:
 
       - name: Enviar notificación a ntfy
         run: |
-          curl -H "Title: Hola Mundo - Jean carlos Cabral P. 2025-1380" \
+          curl -H "Title: Hola Mundo -Ricardo Francisco Caamaño Santos 2021-0556" \
                -H "Priority: default" \
                -d "GitHub Actions ITLA." \
                https://ntfy.sh/devops-itla
