@@ -1,50 +1,24 @@
-
-name: Despliegue automatico a Surge
+name: Alerta DevOps ITLA
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
-  deploy:
+  hola-mundo:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar codigo
+      - name: Descargar el código
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
+      - name: Ejecutar Hola Mundo
+        run: node index.js
 
-      - name: Instalar Surge
-        run: npm install --global surge
-
-      - name: Publicar pagina web
-        env:
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-        run: surge ./ TU-DOMINIO.surge.sh
-
-      - name: Notificar resultado en ntfy
-        if: always()
-        env:
-          JOB_STATUS: ${{ job.status }}
+      - name: Enviar notificación a ntfy
         run: |
-          if [ "$JOB_STATUS" = "success" ]; then
-            MESSAGE="Despliegue exitoso de la pagina web en Surge."
-            TAGS="white_check_mark,rocket"
-          else
-            MESSAGE="El despliegue ha fallado. Revisa GitHub Actions."
-            TAGS="warning,rotating_light"
-          fi
-
-          curl --fail --silent --show-error \
-            -H "Title: GitHub Actions - Surge" \
-            -H "Tags: $TAGS" \
-            -d "$MESSAGE" \
-            https://ntfy.sh/devops-itla \
-            || echo "No se pudo enviar la notificacion a ntfy"
-
+          curl -H "Title: Hola Mundo - Jean carlos Cabral P. 2025-1380" \
+               -H "Priority: default" \
+               -d "GitHub Actions ITLA." \
+               https://ntfy.sh/devops-itla
